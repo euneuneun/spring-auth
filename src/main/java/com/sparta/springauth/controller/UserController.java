@@ -30,25 +30,4 @@ public class UserController {
         return "signup";
     }
 
-
-    @PostMapping("/user/signup") // 회원가입
-    public String signup(SignupRequestDto requestDto){
-        userService.signup(requestDto);
-        return "redirect:/api/user/login-page";
-
-    }
-
-    @PostMapping("/user/login")
-    public String login(LoginRequestDto requestDto, HttpServletResponse res){
-        try {
-            userService.login(requestDto, res);
-        } catch (Exception e) {
-            return "redirect:/api/user/login-page?error";
-        }
-
-        return "redirect:/";
-    }
-
-
-
 }
