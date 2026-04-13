@@ -3,6 +3,7 @@ package com.sparta.springauth.controller;
 import com.sparta.springauth.entity.User;
 import com.sparta.springauth.entity.UserRoleEnum;
 import com.sparta.springauth.security.UserDetailsImpl;
+import com.sparta.springauth.security.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductController {
 
     @GetMapping("/products")
-    public String getProducts(HttpServletRequest req) {
+    public String getProducts(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        User user = userDetails.getUser();
         System.out.println("ProductController.getProducts : 인증 완료");
-        User user = (User) req.getAttribute("user");
         System.out.println("user.getUsername() = " + user.getUsername());
+        System.out.println("user.getEmail() = " + user.getEmail());
 
         return "redirect:/";
     }
